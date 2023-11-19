@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as tokenJson from "../assets/TokenizedBallot.json";
-import { Vote } from "./Vote";
+import { ShowProposals } from "./ShowProposals";
 import { formatUnits } from "viem";
 import { useContractRead } from "wagmi";
 
@@ -24,7 +24,7 @@ export const CheckHasVotingPower = (params: { address: `0x${string}` }) => {
           <p>Curent voting power : {formatUnits(data as bigint, 18)}</p>
         </div>
       </div>
-      <Vote></Vote>
+      <ShowProposals></ShowProposals>
     </>
   );
 };
