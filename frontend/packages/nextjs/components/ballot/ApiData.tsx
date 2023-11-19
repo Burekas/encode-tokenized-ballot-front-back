@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { RequestTokens } from "./RequestTokens";
 import { DelegateVotingPower } from "./DelegateVotingPower";
+import { RequestTokens } from "./RequestTokens";
 
-export const  ApiData = () => {
+export const ApiData = () => {
   const [data, setData] = useState<{ address: string }>();
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:3001/contract-address")
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setData(data);
         setLoading(false);
       });
@@ -30,6 +30,5 @@ export const  ApiData = () => {
       </div>
       <DelegateVotingPower contractAddress={data?.address as `0x${string}`}></DelegateVotingPower>
     </div>
-    
   );
 };
