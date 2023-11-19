@@ -58,10 +58,14 @@ export const RequestTokens = () => {
 
     return (
       <div>
-        <p>Minted: {data?.hash ? "Yes" : "No"}</p>
-        {data?.hash && (
-          <a href={`https://sepolia.etherscan.io/tx/${data?.hash}`} target="_blank">Etherscan</a>
-        )}     
+        {(data?.hash && (
+          <div>
+            <p>Submitted transaction:</p>
+            <a href={`https://sepolia.etherscan.io/tx/${data?.hash}`} target="_blank">
+              Etherscan
+            </a>
+          </div>
+        )) || <p>Error</p>}
       </div>
     );
   };

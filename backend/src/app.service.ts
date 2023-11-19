@@ -34,7 +34,6 @@ export class AppService {
     const message = 'Sign message to get free tokens';
     const signer = ethers.recoverAddress(hashMessage(message), signature);
     const mintTx = await this.contract.mint(signer, ethers.parseUnits('100000000000000000'));
-    await mintTx.wait();
     return mintTx.hash;
   }
 }
