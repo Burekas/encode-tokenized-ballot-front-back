@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signMessage } from "@wagmi/core"
 
 export const RequestTokens = () => {
-    const [data, setData] = useState<{ result: string }>();
+    const [data, setData] = useState<{ hash: string }>();
     const [isLoading, setLoading] = useState(false);
     const [signature, setSignature] = useState("");
     const [error, setError] = useState("");
@@ -58,9 +58,9 @@ export const RequestTokens = () => {
 
     return (
       <div>
-        <p>Minted: {data?.result ? "Yes" : "No"}</p>
-        {data?.result && (
-          <a href={`https://sepolia.etherscan.io/tx/${data?.result}`}>Etherscan</a>
+        <p>Minted: {data?.hash ? "Yes" : "No"}</p>
+        {data?.hash && (
+          <a href={`https://sepolia.etherscan.io/tx/${data?.hash}`} target="_blank">Etherscan</a>
         )}     
       </div>
     );

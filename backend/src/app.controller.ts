@@ -8,12 +8,12 @@ export class AppController {
 
   @Get('contract-address')
   getContractAddress(){
-    return {result: this.appService.getContractAddress()};
+    return {address: this.appService.getContractAddress()};
   }
 
   @Post('mint-tokens')
   async mintTokens(@Body() body: MintTokenDto ) {
-    return {result: await this.appService.mintTokens(body.signature)};
+    return {hash: await this.appService.mintTokens(body.signature)};
   }
 }
 

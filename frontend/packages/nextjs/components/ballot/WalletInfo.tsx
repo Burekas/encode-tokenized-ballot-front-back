@@ -2,7 +2,6 @@ import { useAccount, useNetwork } from "wagmi";
 import { useAccountBalance } from "~~/hooks/scaffold-eth";
 import { ApiData } from "./ApiData";
 
-
 export const WalletInfo = () => {
     const { address, isConnecting, isDisconnected } = useAccount();
     const { balance } = useAccountBalance(address);
@@ -10,7 +9,7 @@ export const WalletInfo = () => {
     if (address)
       return (
         <div >
-          <div className="card lg:card-side bg-base-300 shadow-xl">
+          <div className="card lg:card-side bg-base-300 shadow-xl mb-4">
             <div className="card-body">
               <h2 className="card-title">Account Info</h2>
               <p className="m-0">Your account address is: {address}</p>
