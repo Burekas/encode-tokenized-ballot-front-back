@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as tokenJson from "../assets/TokenizedBallot.json";
 import { ethers } from "ethers";
-import { parseUnits } from "viem";
-import { useContractRead, useContractReads, useContractWrite } from "wagmi";
+import { useContractReads } from "wagmi";
 
 export const ShowProposals = () => {
   const [proposals, setProposals] = useState([]);
@@ -41,8 +40,8 @@ export const ShowProposals = () => {
     <div className="card lg:card-side bg-base-300 shadow-xl mb-4">
       <div className="card-body">
         <h2 className="card-title">Proposals </h2>
-        {data.map((proposal, index) => (
-          <p key={index}>{ethers.decodeBytes32String(proposal.result[0])}</p> // HELP TYPESCRIPT
+        {data.map((proposal: any, index: number) => (
+          <p key={index}>{ethers.decodeBytes32String(proposal.result[0])}</p>
         ))}
       </div>
     </div>

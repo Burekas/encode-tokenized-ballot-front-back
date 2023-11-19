@@ -1,6 +1,6 @@
-import { useState } from "react";
 import * as tokenJson from "../assets/TokenizedBallot.json";
 import FormVote from "./FormVote";
+import { GetResult } from "./GetResults";
 import { ShowProposals } from "./ShowProposals";
 import { formatUnits } from "viem";
 import { useContractRead } from "wagmi";
@@ -29,6 +29,7 @@ export const CheckHasVotingPower = (params: { address: `0x${string}` }) => {
       </div>
       <ShowProposals></ShowProposals>
       <FormVote></FormVote>
+      <GetResult></GetResult>
     </>
   );
 };
