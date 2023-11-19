@@ -50,9 +50,7 @@ export const DelegateVotingPower = (params: { contractAddress: `0x${string}` }) 
           </button>
           {isSuccess && (
             <div>
-              <p mt-4 mb-4>
-                Submitted transaction:
-              </p>
+              <p>Submitted transaction:</p>
               <a href={`https://sepolia.etherscan.io/tx/${data?.hash}`} target="_blank">
                 Etherscan
               </a>

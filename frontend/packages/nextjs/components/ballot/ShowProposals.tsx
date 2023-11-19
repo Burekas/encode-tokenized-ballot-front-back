@@ -9,15 +9,29 @@ export const ShowProposals = () => {
 
   const proposalCount = 3; // @todo add a count inside the contract
 
-  const calls = Array.from({ length: proposalCount }, (_, i) => ({
-    address: "0xDa7A230F9014Dc3cafBb05EFdA636617503FFEF6",
-    contractInterface: tokenJson.abi,
-    functionName: "proposals",
-    args: [i],
-  }));
+  const ballot_address = "0xb728bdeaCc467f22571D2bD234106ccD7b852e51"; // @todo get this from API OR .env ?
 
   const { data, isError, isLoading } = useContractReads({
-    contracts: calls,
+    contracts: [
+      {
+        address: ballot_address,
+        abi: tokenJson.abi,
+        functionName: "proposals",
+        args: [0],
+      },
+      {
+        address: ballot_address,
+        abi: tokenJson.abi,
+        functionName: "proposals",
+        args: [1],
+      },
+      {
+        address: ballot_address,
+        abi: tokenJson.abi,
+        functionName: "proposals",
+        args: [2],
+      },
+    ],
   });
 
   if (isLoading) return <p>Loading token address from API...</p>;
@@ -28,7 +42,7 @@ export const ShowProposals = () => {
       <div className="card-body">
         <h2 className="card-title">Proposals </h2>
         {data.map((proposal, index) => (
-          <p>{ethers.decodeBytes32String(proposal.result[0])}</p> // HELP TYPESCRIPT
+          <p key={index}>{ethers.decodeBytes32String(proposal.result[0])}</p> // HELP TYPESCRIPT
         ))}
       </div>
     </div>
