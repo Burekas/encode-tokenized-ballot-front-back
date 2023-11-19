@@ -9,7 +9,7 @@ export const CheckHasVotingPower = (params: { address: `0x${string}` }) => {
     address: "0xDa7A230F9014Dc3cafBb05EFdA636617503FFEF6", // @TODO get this from API OR .env ?
     abi: tokenJson.abi,
     functionName: "votingPower",
-    args: ["0xdeB5D1a708B6E87187cB6c82D68CD256Dfd61717"],
+    args: [params.address],
   });
 
   if (isLoading) return <p>Loading...</p>;
