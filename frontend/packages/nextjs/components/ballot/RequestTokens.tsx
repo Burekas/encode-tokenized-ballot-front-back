@@ -5,25 +5,34 @@ export const RequestTokens = () => {
     const [data, setData] = useState<{ result: string }>();
     const [isLoading, setLoading] = useState(false);
     const [signature, setSignature] = useState("");
+    const [error, setError] = useState("");
     const body = { signature: signature };
   
     if (isLoading) return <p>Loading...</p>;
     if (!signature)
     return (
-      <button
-        className="btn btn-active btn-neutral"
-        onClick={async () => {
-          setLoading(true);
-          signMessage({
-            message: "Sign message to get free tokens",
-          }).then((value) => {
-            setSignature(value);
-            setLoading(false);
-          });
-        }}
-      >
-        Sign Message
-      </button>
+      <div>
+        <button
+          className="btn btn-active btn-neutral"
+          onClick={async () => {
+            setLoading(true);
+            // Probably would be better to use useSignMessage, but I found signMessage first
+            signMessage({
+              message: "Sign message to get free tokens",
+            }).then((value) => {
+              setSignature(value);
+              setLoading(false);
+              setError("");
+            }).catch(error => {
+              setError(error.message);
+              setLoading(false);
+              });
+          }}
+        >
+          Sign Message
+        </button>
+        {error && (<p>Error: {error}</p>)}
+      </div>
     );
     if (!data && signature)
       return (
@@ -50,7 +59,9 @@ export const RequestTokens = () => {
     return (
       <div>
         <p>Minted: {data?.result ? "Yes" : "No"}</p>
-        <p>{data?.result}</p>
+        {data?.result && (
+          <a href={`https://sepolia.etherscan.io/tx/${data?.result}`}>Etherscan</a>
+        )}     
       </div>
     );
   };
