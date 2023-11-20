@@ -52,7 +52,7 @@ const FormVote = (params: { contractAddress: `0x${string}`; proposals: [] }) => 
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={amount}
-                onChange={e => setAmount(e.target.value)}
+                onChange={e => setAmount(e.target.value.replace(/\D/,''))}
               />
             </div>
           </div>
