@@ -1,14 +1,13 @@
 import { useState } from "react";
-import * as tokenJson from "../assets/TokenizedBallot.json";
+import tokenJson from "../assets/TokenizedBallot.json";
 import { BytesLike, ethers } from "ethers";
-import { useContractRead, useContractReads, useContractWrite } from "wagmi";
+import { useContractRead } from "wagmi";
 
-export const GetResult = () => {
+export const GetResult = (params: { contractAddress: `0x${string}`}) => {
   const [triggerRead, setTriggerRead] = useState(false);
-  const ballot_address = "0xb728bdeaCc467f22571D2bD234106ccD7b852e51"; // @todo get this from API OR .env ?
 
   const { data, isError, isLoading } = useContractRead({
-    address: ballot_address, // @TODO get this from API OR .env ?
+    address: params.contractAddress,
     abi: tokenJson.abi,
     functionName: "winnerName",
   });

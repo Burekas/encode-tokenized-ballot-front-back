@@ -1,17 +1,15 @@
 import { useState } from "react";
-import * as tokenJson from "../assets/TokenizedBallot.json";
+import tokenJson from "../assets/TokenizedBallot.json";
 import { parseUnits } from "viem";
 import { useContractWrite } from "wagmi";
 
-const FormVote = () => {
+const FormVote = (params: { contractAddress: `0x${string}`; proposals: [] }) => {
   // State for the form
   const [selectedProposal, setSelectedProposal] = useState("");
   const [amount, setAmount] = useState("");
 
-  const ballot_address = "0xb728bdeaCc467f22571D2bD234106ccD7b852e51";
-
   const { data, isLoading, isSuccess, write } = useContractWrite({
-    address: ballot_address,
+    address: params.contractAddress,
     abi: tokenJson.abi,
     functionName: "vote",
     args: [selectedProposal, parseUnits(amount, 18)],
@@ -28,36 +26,22 @@ const FormVote = () => {
           }}
         >
           <div className="mb-2">
-            <label>
-              <input
-                type="radio"
-                value="0"
-                key={0}
-                checked={selectedProposal === "0"}
-                onChange={() => setSelectedProposal("0")}
-              />
-              Vanilla
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="1"
-                key={1}
-                checked={selectedProposal === "1"}
-                onChange={() => setSelectedProposal("1")}
-              />
-              Chocolate
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="3"
-                key={3}
-                checked={selectedProposal === "3"}
-                onChange={() => setSelectedProposal("3")}
-              />
-              Chocolate Mint
-            </label>
+            {params.proposals.map((proposal: string, index: number) => (
+            <div className="form-control">
+              <label className="label cursor-pointer">
+                <span className="label-text">{proposal}</span> 
+                <input
+                  type="radio"
+                  className="radio"
+                  name={proposal}
+                  value={index}
+                  key={index}
+                  checked={selectedProposal === index.toString()}
+                  onChange={() => setSelectedProposal(index.toString())}
+                />
+              </label>
+            </div>
+            ))}
 
             <div className="form-control w-full max-w-xs">
               <label className="label">

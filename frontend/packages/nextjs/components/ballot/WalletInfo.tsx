@@ -1,5 +1,4 @@
 import { ApiData } from "./ApiData";
-import { CheckHasVotingPower } from "./CheckHasVotingPower";
 import { useAccount, useNetwork } from "wagmi";
 import { useAccountBalance } from "~~/hooks/scaffold-eth";
 
@@ -18,8 +17,7 @@ export const WalletInfo = () => {
             <p className="m-0"> Balance: {balance}</p>
           </div>
         </div>
-        <ApiData></ApiData>
-        <CheckHasVotingPower address={address as `0x${string}`}></CheckHasVotingPower>
+        <ApiData walletAddress={address as `0x${string}`}></ApiData>
       </div>
     );
   if (isConnecting)

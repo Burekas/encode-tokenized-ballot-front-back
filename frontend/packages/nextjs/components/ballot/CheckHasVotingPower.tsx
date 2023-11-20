@@ -1,15 +1,16 @@
-import * as tokenJson from "../assets/TokenizedBallot.json";
+import tokenJson from "../assets/TokenizedBallot.json";
 import FormVote from "./FormVote";
 import { GetResult } from "./GetResults";
-import { ShowProposals } from "./ShowProposals";
 import { formatUnits } from "viem";
 import { useContractRead } from "wagmi";
 
-const ballot_address = "0xb728bdeaCc467f22571D2bD234106ccD7b852e51";
-
-export const CheckHasVotingPower = (params: { address: `0x${string}` }) => {
+export const CheckHasVotingPower = (params: {
+  address: `0x${string}`;
+  contractAddress: `0x${string}`;
+  proposals: [];
+}) => {
   const { data, isError, isLoading } = useContractRead({
-    address: ballot_address, // @TODO get this from API OR .env ?
+    address: params.contractAddress,
     abi: tokenJson.abi,
     functionName: "votingPower",
     args: [params.address],
@@ -27,9 +28,8 @@ export const CheckHasVotingPower = (params: { address: `0x${string}` }) => {
           <p>Curent voting power : {formatUnits(data as bigint, 18)}</p>
         </div>
       </div>
-      <ShowProposals></ShowProposals>
-      <FormVote></FormVote>
-      <GetResult></GetResult>
+      <FormVote contractAddress={params.contractAddress} proposals={params.proposals}></FormVote>
+      <GetResult contractAddress={params.contractAddress}></GetResult>
     </>
   );
 };
